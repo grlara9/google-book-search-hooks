@@ -1,10 +1,13 @@
-import {useReducer} from 'react'
+import {useReducer, useEffect} from 'react'
+import axios from 'axios'
 
 const ACTIONS = {
     REQUEST_DATA: 'make-request',
     GET_DATA: 'get-data',
     ERROR: 'error'
 }
+
+const URL ="https://www.googleapis.com/books/v1/volumes?q=java"
 
 const reducer =(state, action)=>{
     switch(action.type){
@@ -19,12 +22,19 @@ const reducer =(state, action)=>{
             return state
     }
 }
-export default function reducer(params, page){
+export default function useFetchBooks(params, page){
 
     const [state, dispatch] = useReducer(reducer, {books: [], loading: false, error: false})
-    return{
-        books:[],
-        loading:true,
-        error: true
-    }
+    useEffect(()=>{
+        dispatch({type: ACTIONS.MAKE_REQUEST })
+        axios.get(URL)
+        .then(response=>{
+            console.log(response)
+            dispatch({type: ACTIONS.GET_DATA, payload: {books: response.data}})
+        }).catch(e=>{
+          dispatch({type: ACTIONS.ERROR, payload: {error: e}})  }
+   )
+    }, [params, page])
+    return state
+      
 }
