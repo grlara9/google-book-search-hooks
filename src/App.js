@@ -1,24 +1,16 @@
-import logo from './logo.svg';
+import reducer from './components/Reducer';
+import { Container } from 'react-bootstrap';
 import './App.css';
 
 function App() {
+
+  const {books, loading, error} = reducer()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Container>
+     {loading && <h1>Loading</h1>}
+     {error &&<h1> Error. Try refreshing</h1>}
+      <h1>{books.length}</h1>
+   </Container>
   );
 }
 
