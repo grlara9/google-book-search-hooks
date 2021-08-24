@@ -7,7 +7,7 @@ const ACTIONS = {
     ERROR: 'error'
 }
 
-const URL ="https://www.googleapis.com/books/v1/volumes?q=java"
+const URL ="https://www.googleapis.com/books/v1/volumes?q=java&maxResults=40"
 
 const reducer =(state, action)=>{
     switch(action.type){
@@ -27,10 +27,10 @@ export default function useFetchBooks(params, page){
     const [state, dispatch] = useReducer(reducer, {books: [], loading: false, error: false})
     useEffect(()=>{
         dispatch({type: ACTIONS.MAKE_REQUEST })
-        axios.get(URL)
+        axios.get(URL, {params:{markdown: true, page,...params}})
         .then(response=>{
             console.log(response)
-            dispatch({type: ACTIONS.GET_DATA, payload: {books: response.data}})
+            dispatch({type: ACTIONS.GET_DATA, payload: {books: response.data.items}})
         }).catch(e=>{
           dispatch({type: ACTIONS.ERROR, payload: {error: e}})  }
    )
