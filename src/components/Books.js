@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import {Card , Badge } from 'react-bootstrap'
+import {Card , Badge, Collapse, Button } from 'react-bootstrap'
 //rafc
  const Books = ({ book }) => {
     return (
@@ -21,8 +21,19 @@ import {Card , Badge } from 'react-bootstrap'
                         <div>
                            {book.volumeInfo.infoLink} 
                         </div>
+
+                        <Card.Text className="mt-3">
+                       <Button variant="primary">View details</Button>
+                    </Card.Text>
+                   
+                        <div className="mt-3">
+                            <p>{book.volumeInfo.description}</p>
+                        </div>
+                   
                     </div>
-                    <img alt="logo" src={book.volumeInfo.imageLinks.thumbnail}/>
+                    <img className="d-none d-md-block" height="150" src={book.volumeInfo.imageLinks.thumbnail}/>
+                    
+                   
                 </div>
 
             </Card.Body>
