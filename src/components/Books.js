@@ -1,9 +1,8 @@
 import React from 'react'
-import {Card , Badge } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
+import {Card , Badge } from 'react-bootstrap'
 //rafc
  const Books = ({ book }) => {
-    
     return (
         <Card>
             <Card.Body>
@@ -16,12 +15,14 @@ import ReactMarkdown from 'react-markdown'
                         <Card.Subtitle className="text-muted mb-1">
                             {new Date(book.volumeInfo.publishedDate).toLocaleDateString()}
                         </Card.Subtitle>
-                        <Badge variant="info">{book.volumeInfo.categories}</Badge>
+                        
+                        {book.volumeInfo.categories}
 
                         <div>
-                           <ReactMarkdown source={book.volumeInfo.previewLink} />
+                           {book.volumeInfo.infoLink} 
                         </div>
                     </div>
+                    <img alt="logo" src={book.volumeInfo.imageLinks.thumbnail}/>
                 </div>
 
             </Card.Body>
