@@ -1,43 +1,48 @@
-import React from 'react'
+import {React, useState} from 'react'
+import {Card , Collapse, Badge, Button } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
-import {Card , Badge, Collapse, Button } from 'react-bootstrap'
 //rafc
+
  const Books = ({ book }) => {
+
+    const [open, setOpen]= useState(false)
+
+    const toggle = () => setOpen(!open)
     return (
-        <Card>
-            <Card.Body>
-                <div className="d-flex justify-content-between">
-                    <div>
-                        <Card.Title>
-                            {book.volumeInfo.title} - <span className="text-muted
-                            font-weight-light" >{book.volumeInfo.authors}</span>
-                        </Card.Title>
-                        <Card.Subtitle className="text-muted mb-1">
-                            {new Date(book.volumeInfo.publishedDate).toLocaleDateString()}
-                        </Card.Subtitle>
-                        
-                        {book.volumeInfo.categories}
-
-                        <div>
-                           {book.volumeInfo.infoLink} 
-                        </div>
-
-                        <Card.Text className="mt-3">
-                       <Button variant="primary">View details</Button>
-                    </Card.Text>
-                   
-                        <div className="mt-3">
-                            <p>{book.volumeInfo.description}</p>
-                        </div>
-                   
-                    </div>
-                    <img className="d-none d-md-block" height="150" src={book.volumeInfo.imageLinks.thumbnail}/>
-                    
-                   
-                </div>
-
-            </Card.Body>
-        </Card>
+        <Card className="mb-3">
+      <Card.Body>
+        <div className="d-flex justify-content-between">
+          <div>
+            <Card.Title>
+              {book.volumeInfo.title} - <span className="text-muted font-weight-light">{book.volumeInfo.title}</span>
+            </Card.Title>
+            <Card.Subtitle className="text-muted mb-2">
+              {new Date().toLocaleDateString()}
+            </Card.Subtitle>
+            <Badge variant="secondary" className="mr-2">ghj</Badge>
+            <Badge variant="secondary"><p>hola</p></Badge>
+            <div style={{ wordBreak: 'break-all' }}>
+              <ReactMarkdown  />
+            </div>
+          </div>
+          <img className="d-none d-md-block" height="50" />
+        </div>
+        <Card.Text>
+          <Button
+            onClick={() => setOpen(prevOpen => !prevOpen)}
+            variant="primary"
+          >
+            {open ? 'Hide Details' : 'View Details'}
+          </Button>
+        </Card.Text>
+        <Collapse in={open}>
+          <div className="mt-4">
+            <ReactMarkdown source={book.volumeInfo.description} />
+          </div>
+        </Collapse>
+      </Card.Body>
+    </Card>
+      
        
     )
 }
