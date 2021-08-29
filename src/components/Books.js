@@ -1,5 +1,5 @@
-import {React, useState} from 'react'
-import {Card , Collapse, Badge, Button } from 'react-bootstrap'
+import  React,{ useState} from 'react'
+import {Card , Badge, Button, Collapse } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
 //rafc
 
@@ -14,13 +14,12 @@ import ReactMarkdown from 'react-markdown'
         <div className="d-flex justify-content-between">
           <div>
             <Card.Title>
-              {book.volumeInfo.title} - <span className="text-muted font-weight-light">{book.volumeInfo.title}</span>
+              {book.volumeInfo.title} - <span className="text-muted font-weight-light">{book.volumeInfo.authors}</span>
             </Card.Title>
             <Card.Subtitle className="text-muted mb-2">
-              {new Date().toLocaleDateString()}
+              {new Date(book.volumeInfo.publishedDate).toLocaleDateString()}
             </Card.Subtitle>
             <Badge variant="secondary" className="mr-2">ghj</Badge>
-            <Badge variant="secondary"><p>hola</p></Badge>
             <div style={{ wordBreak: 'break-all' }}>
               <ReactMarkdown  />
             </div>
@@ -37,7 +36,7 @@ import ReactMarkdown from 'react-markdown'
         </Card.Text>
         <Collapse in={open}>
           <div className="mt-4">
-            <ReactMarkdown source={book.volumeInfo.description} />
+            <ReactMarkdown>{book.volumeInfo.description}</ReactMarkdown>
           </div>
         </Collapse>
       </Card.Body>
