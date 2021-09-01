@@ -6,13 +6,15 @@ import React, {useState} from 'react'
 
     const onChange=(e)=>{
         setText(e.target.value)
-
     }
 
-    console.log("this is the user input", text)
+    const handleSubmit =(e) =>{
+        e.preventDefault();
+    }
+    console.log("user input", text)
     return (
         <div>
-            <form>
+            <form handleSubmit={handleSubmit}>
                 <input type="text" onChange={onChange} placeholder="enter book"/>
 
             </form>
