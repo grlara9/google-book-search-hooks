@@ -13,10 +13,10 @@ import './Books.css'
            <div className="d-flex justify-content-between">
               <div>
                   <Card.Title>
-                    {book.volumeInfo.title} - <span className="text-muted font-weight-light">{book.volumeInfo.authors}</span>
+                    <h3>{book.volumeInfo.title} </h3>
                   </Card.Title>
                   <Card.Subtitle className="text-muted mb-2">
-                    {new Date(book.volumeInfo.publishedDate).toLocaleDateString()}
+                    <span className="text-muted font-weight-light mr-2">by {book.volumeInfo.authors }</span> | {new Date(book.volumeInfo.publishedDate).toLocaleDateString()}
                   </Card.Subtitle>
                   <Badge><span color="black">{book.volumeInfo.categories}</span></Badge>
                   <div>
