@@ -42,31 +42,8 @@ export default function useFetchBooks(params, page){
    }
     }, [params, page])
 
-    useEffect(()=>{
 
-        const search =(name, author)=>{
 
-            const cancelToken = axios.CancelToken.source()
-            dispatch({type: ACTIONS.MAKE_REQUEST})
-            axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}+inauthor:${author}&maxResults=40`
-            , {cancelToken: cancelToken.token, params:{markdown: true, page,...params}})
-            .then(response=>{
-                console.log(response)
-                dispatch({type: ACTIONS.GET_DATA, payload: {books: response.data.items}})
-            }).catch(e=>{
-                if(axios.isCancel(e)) return
-              dispatch({type: ACTIONS.ERROR, payload: {error: e}})  
-            })
-            
-       
-
-        
-        
-            search()
-            return () => {
-                cancelToken.cancel()
-            }
-        }}, [params, page])
 
     return state
       
