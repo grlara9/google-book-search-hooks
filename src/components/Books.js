@@ -23,7 +23,7 @@ import './Books.css'
                     <ReactMarkdown>{book.volumeInfo.previewLink}</ReactMarkdown>
                   </div>
               </div>
-              <img className="d-none d-md-block" height="150"src={book.volumeInfo.imageLinks.thumbnail}/>
+              <img className="d-none d-md-block" height="150"src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101065/112815953-no-image-available-icon-flat-vector.jpg"}/>
             </div>
         <Card.Text>
           <Button onClick={() => setOpen(prevOpen => !prevOpen)} variant="primary">

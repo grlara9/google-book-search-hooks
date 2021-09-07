@@ -12,9 +12,12 @@ function App() {
   const {books, loading, error} = useFetchBooks()
   
   const onChange =(e)=>{
-    const params = e.target.name;
+    const param = e.target.name;
     const value = e.target.value
-    console.log("esto escribo" , value)
+    
+    setParams(prevParams =>{
+      return {...prevParams, [param]:value}
+    })
   }
 
   return (
