@@ -10,7 +10,12 @@ import React, {useState} from 'react'
         const { name, value} = e.target;
         setState({...state, [name]:value})
     }
-  console.log("this is state", state)
+    
+    const handleFormSubmit =(e) =>{
+        e.preventDefault();
+        console.log("this is state", state)
+        props.search(state)
+  }
     return (
         <div>
             <form>
@@ -26,7 +31,7 @@ import React, {useState} from 'react'
                 name="author" 
                 placeholder="enter author"/>
 
-
+                <button type="submit"onClick={handleFormSubmit}>SEARCH</button>
             </form>
         </div>
     )
