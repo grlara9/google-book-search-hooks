@@ -8,8 +8,8 @@ const ACTIONS = {
 }
 
 const URL ="https://www.googleapis.com/books/v1/volumes?q=java&maxResults=40"
-const BASE_URL="https://www.googleapis.com/books/v1/volumes"
-const base = "`https://www.googleapis.com/books/v1/volumes?q=${params}+inauthor:${params}&maxResults=40`"
+//const BASE_URL="https://www.googleapis.com/books/v1/volumes"
+//const BASE= `https://www.googleapis.com/books/v1/volumes?q=${params}+inauthor:${params}&maxResults=40`
 const reducer =(state, action)=>{
     switch(action.type){
         case ACTIONS.REQUEST_DATA:
@@ -25,22 +25,19 @@ const reducer =(state, action)=>{
 }
 export default function useFetchBooks(params, page){
 
-    const [state, dispatch] = useReducer(reducer, {books: [], loading: false, error: false})
+    const [state, dispatch] = useReducer(reducer, {books: [], loading: true, error: false})
 
     useEffect(()=>{
-        const cancelToken = axios.CancelToken.source()
+        
         dispatch({type: ACTIONS.MAKE_REQUEST })
-        axios.get(BASE_URL, {cancelToken: cancelToken.token, params:{markdown: true, page,...params}})
+        axios.get()
         .then(response=>{
             console.log(response)
             dispatch({type: ACTIONS.GET_DATA, payload: {books: response.data.items}})
         }).catch(e=>{
-            if(axios.isCancel(e)) return
+           
           dispatch({type: ACTIONS.ERROR, payload: {error: e}})  }
    )
-   return () => {
-       cancelToken.cancel()
-   }
     }, [params, page])
 
     
