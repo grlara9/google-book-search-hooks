@@ -20,13 +20,13 @@ import React, {useState} from 'react'
         <div>
             <form>
                 <input type="text" 
-                onChange={onChange}  
-                value={state.title} 
                 name="title" 
+                value={state.title} 
+                onChange={(e)=> onChange(e)}  
                 placeholder="enter book name"/>
 
                 <input type="text" 
-                onChange={onChange}  
+                onChange={(e)=>onChange(e)}  
                 value={state.author} 
                 name="author" 
                 placeholder="enter author"/>
