@@ -10,15 +10,7 @@ function App() {
   const [params, setParams] =useState({})
   const [page, setPage] = useState(1)
   const {books, loading, error} = useFetchBooks()
-  
-  const onChange =(e)=>{
-    const param = e.target.name;
-    const value = e.target.value
-    
-    setParams(prevParams =>{
-      return {...prevParams, [param]:value}
-    })
-  }
+
 
   return (
    <Container>

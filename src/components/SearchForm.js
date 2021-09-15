@@ -1,20 +1,20 @@
 import React, {useState} from 'react'
 
  const SearchForm = (props) => {
-        const [state, setState] = useState({
+        const [states, setStates] = useState({
             title:'',
             author:''
         })
 
     const onChange = (e)=>{
         const { name, value} = e.target;
-        setState({...state, [name]:value})
+        setStates({...states, [name]:value})
     }
     
     const handleFormSubmit =(e) =>{
         e.preventDefault();
         console.log("this is state", state)
-        props.search(state)
+        props.search(states)
   }
     return (
         <div>
