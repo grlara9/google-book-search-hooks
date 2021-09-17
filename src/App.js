@@ -7,7 +7,7 @@ function App(){
   const [params, setParams] = useState({})
   
   
-  const { jobs, loading, error, hasNextPage } = useFetchJobs(params)
+  const { books, loading, error, hasNextPage } = useFetchJobs(params)
 
   function handleParamChange(e) {
     const param = e.target.name
@@ -18,6 +18,7 @@ function App(){
     })
   }
 
+  console.log("books", books)
   console.log("this is ",params)
   return(
     <Container>

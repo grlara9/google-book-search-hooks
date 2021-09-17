@@ -2,7 +2,7 @@ import React from 'react'
 
 
  const SearchForm = ({params, onParamsChange}) => {
-    console.log("this is ",params)
+   
     
    return (
         <div>
