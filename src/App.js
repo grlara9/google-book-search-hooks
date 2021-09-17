@@ -1,19 +1,30 @@
-import {useState} from 'react'
-import useFetchBooks from './components/Reducer';
-import { Container } from 'react-bootstrap';
-import Books from './components/Books'
-import SearchForm  from './components/SearchForm';
-import './App.css';
+import React, {useState} from 'react'
+import useFetchJobs from './components/Reducer'
+import  SearchForm from './components/SearchForm'
+import { Container } from 'react-bootstrap'
 
-
-function App() {
+function App(){
+  const [params, setParams] = useState({})
   
+  
+  const { jobs, loading, error, hasNextPage } = useFetchJobs(params)
 
-  return (
-   <Container>
-     <SearchForm />     
-   </Container>
-  );
+  function handleParamChange(e) {
+    const param = e.target.name
+    const value = e.target.value
+    
+    setParams(prevParams => {
+      return { ...prevParams, [param]: value }
+    })
+  }
+
+  console.log("this is ",params)
+  return(
+    <Container>
+    <h1 className="mb-4">GitHub Jobs</h1>
+      <SearchForm params={params} onParamsChange={handleParamChange} />
+      </Container>
+  )
 }
 
-export default App;
+export default App
