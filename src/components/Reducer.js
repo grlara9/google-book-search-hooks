@@ -2,12 +2,8 @@ import { useReducer, useEffect } from 'react'
 import axios from 'axios'
 
 const initialState ={
-    
-        books: [], 
-        loading: true 
-    
-    
-}
+  books: [], 
+  loading: true }
 
 const ACTIONS = {
   MAKE_REQUEST: 'make-request',
@@ -23,35 +19,33 @@ const ACTIONS = {
 function reducer(state, action) {
     switch (action.type) {
         case ACTIONS.MAKE_REQUEST:
-            return { loading: true, jobs: [] }
-            case ACTIONS.GET_DATA:
-                return { ...state, loading: false, books: action.payload.books }
-                case ACTIONS.ERROR:
-                    return { ...state, loading: false, error: action.payload.error, books: [] }
-                    case ACTIONS.UPDATE_HAS_NEXT_PAGE:
-                        return { ...state, hasNextPage: action.payload.hasNextPage }
-                        default:
-                            return state
-                        }
-                    }
+            return { loading: true, books: [] }
+    case ACTIONS.GET_DATA:
+            return { ...state, loading: false, books: action.payload.books }
+    case ACTIONS.ERROR:
+            return { ...state, loading: false, error: action.payload.error, books: [] }
+    default:
+            return state
+    }
+}
                     
-                    export default function useFetchJobs(params, page) {
+    export default function useFetchJobs(params, page) {
 
-                        const [state, dispatch] = useReducer(reducer, initialState)
-                        
-                        
-                        useEffect(() => {
-                            const cancelToken1 = axios.CancelToken.source()
-                            dispatch({ type: ACTIONS.MAKE_REQUEST })
-                            axios.get(`https://www.googleapis.com/books/v1/volumes?q=${params}&maxResults=40`, {
-                                cancelToken: cancelToken1.token
-                            
-                            }).then(res => {
-                                dispatch({ type: ACTIONS.GET_DATA, payload: { books: res.data } }) 
-                            }).catch(e => {
-                                if (axios.isCancel(e)) return
-                                dispatch({ type: ACTIONS.ERROR, payload: { error: e } }) 
-                            })
+        const [state, dispatch] = useReducer(reducer, initialState)
+        
+        
+        useEffect(() => {
+            const cancelToken1 = axios.CancelToken.source()
+            dispatch({ type: ACTIONS.MAKE_REQUEST })
+            axios.get("https://www.googleapis.com/books/v1/volumes?q=java&maxResults=40", {
+                cancelToken: cancelToken1.token
+            
+            }).then(res => {
+                dispatch({ type: ACTIONS.GET_DATA, payload: { books: res.data.items } }) 
+            }).catch(e => {
+                if (axios.isCancel(e)) return
+                dispatch({ type: ACTIONS.ERROR, payload: { error: e } }) 
+            })
 
     
     return () => {

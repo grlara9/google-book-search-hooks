@@ -7,7 +7,7 @@ function App(){
   const [params, setParams] = useState({})
   
   
-  const { books, loading, error, hasNextPage } = useFetchJobs(params)
+  const { books, loading, error} = useFetchJobs(params)
 
   function handleParamChange(e) {
     const param = e.target.name
@@ -18,12 +18,13 @@ function App(){
     })
   }
 
-  console.log("books", books)
-  console.log("this is ",params)
+ 
   return(
     <Container>
     <h1 className="mb-4">GitHub Jobs</h1>
       <SearchForm params={params} onParamsChange={handleParamChange} />
+      {loading && <h1>Loading...</h1>}
+      <h1>{books.length}</h1>
       </Container>
   )
 }
