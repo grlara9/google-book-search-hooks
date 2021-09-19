@@ -20,7 +20,7 @@ import './Books.css'
                   </Card.Subtitle>
                   <Badge><span color="black">{book.volumeInfo.categories}</span></Badge>
                   <div>
-                    <ReactMarkdown>{book.volumeInfo.previewLink}</ReactMarkdown>
+                    <ReactMarkdown className="mr-2">{book.volumeInfo.previewLink}</ReactMarkdown>
                   </div>
               </div>
               <img className="d-none d-md-block" height="150"src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : "https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101065/112815953-no-image-available-icon-flat-vector.jpg"}/>
