@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import useFetchJobs from './components/Reducer'
 import  SearchForm from './components/SearchForm'
 import { Container } from 'react-bootstrap'
+import Books from './components/Books'
 
 function App(){
   const [params, setParams] = useState({})
@@ -24,7 +25,9 @@ function App(){
     <h1 className="mb-4">GitHub Jobs</h1>
       <SearchForm params={params} onParamsChange={handleParamChange} />
       {loading && <h1>Loading...</h1>}
-      <h1>{books.length}</h1>
+      {books.map(book => {
+        return <Books key={book.id} book={book} />
+      })}
       </Container>
   )
 }
