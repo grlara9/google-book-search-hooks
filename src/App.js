@@ -9,7 +9,7 @@ function App(){
   const [params, setParams] = useState({})
   const [page, setPage] = useState(1)
   
-  const { books, loading, error} = useFetchJobs(params)
+  const { books, loading, error, hasNextPage} = useFetchJobs(params)
 
   function handleParamChange(e) {
     const param = e.target.name
@@ -25,12 +25,12 @@ function App(){
     <Container>
     <h1 className="mb-4">GitHub Jobs</h1>
       <SearchForm params={params} onParamsChange={handleParamChange} />
-      <BookPagination page={page} setPage={setPage} hasNextPage={true}/>
+      <BookPagination page={page} setPage={setPage} hasNextPage={hasNextPage}/>
       {loading && <h1>Loading...</h1>}
       {books.map(book => {
         return <Books key={book.id} book={book} />
       })}
-      <BookPagination page={page} setPage={setPage} hasNextPage={true}/>
+      <BookPagination page={page} setPage={setPage} hasNextPage={hasNextPage}/>
       </Container>
   )
 }

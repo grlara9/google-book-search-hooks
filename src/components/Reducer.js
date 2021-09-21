@@ -24,6 +24,8 @@ function reducer(state, action) {
             return { ...state, loading: false, books: action.payload.books }
     case ACTIONS.ERROR:
             return { ...state, loading: false, error: action.payload.error, books: [] }
+    case ACTIONS.UPDATE_HAS_NEXT_PAGE:
+            return { ...state, hasNextPage: action.payload.hasNextPage }
     default:
             return state
     }
@@ -38,8 +40,8 @@ function reducer(state, action) {
             const cancelToken1 = axios.CancelToken.source()
             dispatch({ type: ACTIONS.MAKE_REQUEST })
             axios.get("https://www.googleapis.com/books/v1/volumes?q=java&maxResults=40", {
-                cancelToken: cancelToken1.token
-            
+                cancelToken: cancelToken1.token,
+                params:{...params}
             }).then(res => {
                 dispatch({ type: ACTIONS.GET_DATA, payload: { books: res.data.items } }) 
             }).catch(e => {
@@ -47,9 +49,20 @@ function reducer(state, action) {
                 dispatch({ type: ACTIONS.ERROR, payload: { error: e } }) 
             })
 
-    
-    return () => {
-      cancelToken1.cancel()
+            const cancelToken2 = axios.CancelToken.source()
+            axios.get("https://www.googleapis.com/books/v1/volumes?q=java&maxResults=40", {
+              cancelToken: cancelToken2.token,
+              params: {  page: page + 1, ...params }
+            }).then(res => {
+              dispatch({ type: ACTIONS.UPDATE_HAS_NEXT_PAGE, payload: { hasNextPage: res.data.length !== 0 } }) 
+            }).catch(e => {
+              if (axios.isCancel(e)) return
+              dispatch({ type: ACTIONS.ERROR, payload: { error: e } }) 
+            })
+        
+            return () => {
+              cancelToken1.cancel()
+              cancelToken2.cancel()
       
     }
   }, [params, page])
