@@ -27,6 +27,7 @@ function App(){
       <SearchForm params={params} onParamsChange={handleParamChange} />
       <BookPagination page={page} setPage={setPage} hasNextPage={hasNextPage}/>
       {loading && <h1>Loading...</h1>}
+      {error && <h1>Error</h1>}
       {books.map(book => {
         return <Books key={book.id} book={book} />
       })}
